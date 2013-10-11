@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>rubyacademy 2013 - winter edition</title>
+		<title>RubyAcademy 2013 - Winter Edition</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -16,6 +16,7 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+    <link rel="stylesheet" href="css/addons.css">
 
 		<!-- For syntax highlighting -->
 		 <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -40,7 +41,12 @@
 			<div class="slides">
 				<section>
 					<h2>RUBYACADEMY 2013</h2>
-					<p><small>"I hope to see Ruby help every programmer in the world to be productive, and to enjoy programming, and to be happy. That is the primary purpose of Ruby language." 2008, Yukihiro Matsumoto</small></p>
+					<p><small>
+            "I hope to see Ruby help every programmer in the world to be
+            productive, and to enjoy programming, and to be happy. That is the primary purpose of Ruby language."</small></p>
+          <p class="quote_author"><small>
+            2008, Yukihiro Matsumoto
+          </small></p>
 				</section>
 
         <section data-markdown>
@@ -109,6 +115,9 @@
         <section>
           <h2>IMPLICIT RETURN VALUE</h2>
           <p>methods always return the last evaluated sentence</p>
+          <pre><code class="ruby">
+            hello_world # => "hello world"
+          </code></pre>
         </section>
 
 
@@ -134,7 +143,7 @@
             end
 
             animal = Animal.new
-            animal.eat # => I am eating
+            animal.eat # prints "I am eating"
           </code></pre>
         </section>
 
@@ -153,6 +162,10 @@
                 puts "meow"
               end
             end
+
+            person = Person.new
+            person.talk # prints "blah blah"
+            person.eat  # prints "I am eating"
           </code></pre>
         </section>
 
@@ -173,6 +186,8 @@
             class Person
               include SwimAbility
             end
+
+            person.swim # prints "I'm swimming"
           </code></pre>
           <p>cats cannot swim</p>
         </section>
@@ -201,6 +216,10 @@
                 @name
               end
             end
+
+            person.name # => nil
+            person.name = 'Pilu'
+            person.name # => "Pilu"
           </code></pre>
         </section>
 
@@ -247,6 +266,10 @@
                 @@count += 1
               end
             end
+
+            Animal.count # => 0
+            Animal.new
+            Animal.count # => 1
           </code></pre>
         </section>
 
@@ -264,7 +287,55 @@
           </code></pre>
         </section>
 
-        <!-- spostare a dopo -->
+
+        <section>
+          <h2>METHODS VISIBILITY</h2>
+          <p>public, protected</p>
+          <pre><code class="ruby">
+            class Woman
+              def initialize(name, age)
+                @name, @age = name, age
+              end
+
+              def older?(other)
+                (age <=> other.age) == 1 ? true : false
+              end
+
+              protected
+              attr_accessor :age # a woman will never tell you her age
+            end
+
+            mother   = Woman.new('Jane', 44)
+            daughter = Woman.new('Jill', 12)
+            mother.older? daughter # => true
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>METHODS VISIBILITY</h2>
+          <p>public, private</p>
+          <pre><code class="ruby">
+            class Woman
+              def initialize(name, age)
+                @name, @age = name, age
+              end
+
+              def older?(other)
+                (age <=> other.age) == 1 ? true : false
+              end
+
+              private
+              attr_accessor :age # a woman will never tell anyone her age
+            end
+
+            mother   = Woman.new('Jane', 44)
+            daughter = Woman.new('Jill', 12)
+            mother.older? daughter # raises a NoMethodError exception
+          </code></pre>
+        </section>
+
+
         <section>
           <h2>DUCK TYPING (polymorphism)</h2>
           <p>If it quacks like a duck then it's a duck</p>
@@ -293,32 +364,6 @@
             end
 
             animal.speak
-          </code></pre>
-        </section>
-
-
-        <section>
-          <h2>METHODS VISIBILITY</h2>
-          <p>public, protected</p>
-          <pre><code class="ruby">
-            class Woman
-              protected
-              # a woman will never tell you her age
-              attr_accessor :age
-
-              public
-              def initialize(name, age)
-                @name, @age = name, age
-              end
-
-              def older?(other)
-                (age <=> other.age) == 1 ? true : false
-              end
-            end
-
-            mother   = Woman.new('Jane', 44)
-            daughter = Woman.new('Jill', 12)
-            mother.older? daughter # => true
           </code></pre>
         </section>
 			</div>
