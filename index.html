@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>rubyacademy 2013 - winter edition</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -293,6 +293,32 @@
             end
 
             animal.speak
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>METHODS VISIBILITY</h2>
+          <p>public, protected</p>
+          <pre><code class="ruby">
+            class Woman
+              protected
+              # a woman will never tell you her age
+              attr_accessor :age
+
+              public
+              def initialize(name, age)
+                @name, @age = name, age
+              end
+
+              def older?(other)
+                (age <=> other.age) == 1 ? true : false
+              end
+            end
+
+            mother   = Woman.new('Jane', 44)
+            daughter = Woman.new('Jill', 12)
+            mother.older? daughter # => true
           </code></pre>
         </section>
 			</div>
