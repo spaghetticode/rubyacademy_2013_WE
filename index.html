@@ -368,18 +368,40 @@
         </section>
 
 
-        <section>
+<!--         <section>
           <h2>Truth, Untruth and Nothing</h2>
-        </section>
+          <pre>
+            <code class="ruby">
+              true.class
+              false.class
+              nil.class
+            </code>
+          </pre>
+        </section> -->
+
 
 
         <section>
           <h2>Symbols</h2>
+          <p>symbols are similar to strings, but their object_id never changes</p>
+          <pre><code class="ruby">
+              'abc'.object_id == 'abc'.object_id # => false
+              :abc.object_id == :abc.object_id   # => true
+          </code></pre>
         </section>
 
 
         <section>
           <h2>Bang Methods</h2>
+          <p>bang methods are "dangerous" versions or regular methods. Often used when method changes the object itself</p>
+          <pre><code class="ruby">
+              string = 'satanic message'
+              string.reverse
+              string # => "satanic message"
+
+              string.reverse!
+              string # => "egassem cinatas"
+            </code></pre>
         </section>
 
 
@@ -391,11 +413,57 @@
 
         <section>
           <h2>If</h2>
+          <pre><code class="ruby">
+            if true
+              puts "true"
+            end
+
+            puts "true" if 3 > 1
+            puts "true" if 0
+            puts "true" if ''
+
+            puts "this never happens" if false
+            puts "this never happens" if nil
+
+            puts "true" if !false
+            puts "true" if !nil
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Else</h2>
+          <pre><code class="ruby">
+            if 3 > 5
+              puts "3 is greater than 5"
+            else
+              puts "3 is not greater than 5"
+            end
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Elsif</h2>
+          <pre><code class="ruby">
+            if 3 > 5
+              puts "3 is greater than 5"
+            elsif 3 > 2
+              puts "3 is greater than 2"
+            else
+              "3 is not greater than 5 and not greater than 2"
+            end
+          </code></pre>
         </section>
 
 
         <section>
           <h2>Unless</h2>
+          <pre><code class="ruby">
+            puts "true" if !(3 < 1)
+            # same as
+            puts "true" unless 3 < 1
+          </code></pre>
         </section>
 
 
@@ -406,17 +474,39 @@
 
         <section>
           <h2>While</h2>
+          <pre><code class="ruby">
+            n = 0
+            while n < 10
+              puts n
+              n += 1
+            end
+          </code></pre>
         </section>
 
 
         <section>
           <h2>Until</h2>
+          <pre><code class="ruby">
+            n = 1
+            until n >= 10
+              puts n
+              n += 1
+            end
+          </code></pre>
         </section>
 
 
         <section>
-          <h2>Loop</h2>
-        </section>
+          <h2>Loop & sleep</h2>
+          <pre><code class="ruby">
+            n = 1
+            loop do
+              puts n
+              n += 1
+              sleep 1 # number of seconds
+            end
+          </code></pre>
+          </section>
 
 
         <section>
