@@ -206,13 +206,28 @@
 
 
         <section>
+          <h2>ATTR_ACCESSOR MACRO</h2>
+          <pre><code class="ruby">
+            class Person
+              attr_accessor :name
+            end
+
+            joe = Person.new
+            joe.name = 'Joe'
+            joe.name # => "Joe"
+          </code></pre>
+          <p>attr_reader, attr_writer also exist</p>
+        </section>
+
+
+        <section>
           <h2>CLASS VARIABLES</h2>
           <pre><code class="ruby">
             class Person
-              @@average_age = 80
+              @@average_max_age = 80
 
-              def average_age
-                @@average_age
+              def average_max_age
+                @@average_max_age
               end
             end
           </code></pre>
