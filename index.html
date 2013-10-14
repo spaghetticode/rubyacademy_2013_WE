@@ -139,7 +139,7 @@
             "hello".class
             true.class
             1.object_id
-            "hello".object_id (id changes each time)
+            "hello".object_id
           </code></pre>
         </section>
 
@@ -417,8 +417,10 @@
           <h2>Strongly typed</h2>
           <p>No automatic conversion (unlike javascript)</p>
           <pre><code class="ruby">
-          "mi è semblato di vedere " + 1 + " gatto"
-          # => TypeError: no implicit conversion of Fixnum into String
+            "mi è semblato di vedere " + 1 + " gatto"
+            # => TypeError: no implicit conversion of Fixnum into String
+            "mi è semblato di vedere " + 1.to_s + " gatto"
+            # => "mi è semblato di vedere 1 gatto"
           </code></pre>
         </section>
 
@@ -441,8 +443,9 @@
           <p>Strings cannot be multiplied by strings</p>
           <p>But they can be multiplied by numbers!</p>
           <pre><code class="ruby">
-        "s" * "d" # TypeError: no implicit conversion of String into Integer
-        "manah manah" * 2 # => "manah manahmanah manah"
+            "s" * "d" # TypeError: no implicit conversion of String into Integer
+            "manah manah" * 2 # => "manah manahmanah manah"
+            2 * "manah manah" # TypeError: String can't be coerced into Fixnum
           </code></pre>
         </section>
 
