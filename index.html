@@ -350,35 +350,62 @@
         <section>
           <h3>3</h3>
           <h2>STANDARD LIBRARY</h2>
+          <h2>FLOW CONTROL</h2>
         </section>
 
 
         <section>
           <h2>STRINGS</h2>
+          <pre><code class="ruby">
+            my_string = "   John is coding with Ruby   "
+            my_string.downcase        # => "   john is coding with ruby   "
+            my_string.upcase.strip + "!" # => "JOHN IS CODING WITH RUBY!"
+            my_string.strip.rjust(30) # => "      John is coding with Ruby"
+            my_string.reverse         # => "   ybuR htiw gnidoc si nhoJ   "
+
+            my_string.to_i # => 0
+            "123".to_i     # => 123
+
+            "Mary" == "Mary"                     # => true
+            "Mary".object_id == "Mary".object_id # => false
+          </code></pre>
+          <p>See more on <a href="http://ruby-doc.org/core-2.0.0/String.html">ruby-doc.org</a></p>
         </section>
 
 
         <section>
           <h2>NUMBERS</h2>
+          <pre><code class="ruby">
+            my_number = 11.22
+            my_number.to_i       # => 11
+            my_number * 5 / 2    # => 28.05
+            my_number + 1 - 3    # => 9.22
+            my_number % 2        # => 1.2200000000000006
+            my_number ** 2       # => 125.88840000000002
+
+            my_number.floor      # => 11
+            my_number.ceil       # => 12
+
+            my_number.i          # => (0+11.22i)
+
+            my_number.class      # => Float
+            my_number.to_i.class # => Fixnum
+          </code></pre>
+          <p>See more on <a href="http://ruby-doc.org/core-2.0.0/Numeric.html">ruby-doc.org</a></p>
         </section>
 
 
         <section>
           <h2>4 * "manah manah"</h2>
+          <p>Strings cannot be multiplied by strings</p>
+          <p>But they can be multiplied by numbers!</p>
+          <pre><code class="ruby">
+            "s" * "d" # TypeError: no implicit conversion of String into Integer
+            2 * "manah manah" # => "manah manahmanah manah"
+
+            "manah " + 1 # => "manah 1"
+          </code></pre>
         </section>
-
-
-<!--         <section>
-          <h2>Truth, Untruth and Nothing</h2>
-          <pre>
-            <code class="ruby">
-              true.class
-              false.class
-              nil.class
-            </code>
-          </pre>
-        </section> -->
-
 
 
         <section>
@@ -387,7 +414,11 @@
           <pre><code class="ruby">
               'abc'.object_id == 'abc'.object_id # => false
               :abc.object_id == :abc.object_id   # => true
+
+              'abc'.to_sym.object_id == 'abc'.to_sym.object_id # => true
+              :abc.to_s.object_id == :abc.to_s.object_id       # => false
           </code></pre>
+          <p>See more on <a href="http://ruby-doc.org/core-2.0.0/Symbol.html">ruby-doc.org</a></p>
         </section>
 
 
@@ -402,12 +433,6 @@
               string.reverse!
               string # => "egassem cinatas"
             </code></pre>
-        </section>
-
-
-        <section>
-          <h3>4</h3>
-          <h2>Flow Control</h2>
         </section>
 
 
@@ -468,7 +493,20 @@
 
 
         <section>
-          <h2>Each</h2>
+          <h2>Each and Times</h2>
+          <pre><code class="ruby">
+            "mary".each do |char|
+              puts char # will print each letter of "mary"
+            end
+
+            4.times do |index|
+              puts index # will print each number from 0 to 3
+            end
+          </code></pre>
+          <p>
+            Ruby gives you even the plain <code>for</code> keyword but noone
+            uses it (and we'll not going to show it to you) because it's <strong>UGLY</strong>!
+          </p>
         </section>
 
 
@@ -506,12 +544,68 @@
               sleep 1 # number of seconds
             end
           </code></pre>
-          </section>
+        </section>
 
 
         <section>
-          <h3>5</h3>
-          <h2>&lt;give me a name&gt;</h2>
+          <h2>Truth, Untruth and Nothing</h2>
+          <pre><code class="ruby">
+            true.class  # => TrueClass
+            false.class # => FalseClass
+            nil.class   # => NilClass
+
+            "mary" == "mary" # returns true, which class is TrueClass
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Identity</h2>
+          <p>When you check an object in a condition you check its identity</p>
+          <pre><code class="ruby">
+            if "mary" # True and each valid object validates to true
+              ...
+            end
+            # Instead nil and false identities always validate to false
+            unless nil && false
+              puts 'd'
+            end
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>String interpolation</h2>
+          <pre><code class="ruby">
+            name = 'Mary'
+            object = 'an apple'
+
+            puts name + ' eats ' + object # prints "Mary eats an apple"
+            puts "#{name} eats #{object}" # prints "Mary eats an apple"
+            puts "#{2 * name} is eating"  # prints "MaryMary is eating"
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Everything returns something</h2>
+          <pre><code class="ruby">
+            a = "mary" == "mary"
+            puts a # prints true
+
+            def return_something
+              5 + 3
+            end
+
+            def force_return
+              return 'd'
+              5 + 2
+            end
+
+            return_something # => 8
+            force_return     # => 'd'
+          </code></pre>
+          <p>In ruby everything returns the last evaluated expression</p>
         </section>
 
 
@@ -549,14 +643,16 @@
 
         <section>
           <h2>OPTIONAL ARGUMENTS</h2>
+          <pre><code class="ruby">
+            def walk(from='Rome', to='Milan')
+              puts 'You are walking from ' + from + ' to ' + to
+            end
+
+            walk
+            walk 'Rome'
+            walk 'Milan', 'Rome'
+          </code></pre>
         </section>
-
-
-        <section>
-          <h2>SPLAT</h2>
-        </section>
-			</div>
-
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
