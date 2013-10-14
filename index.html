@@ -145,7 +145,18 @@
 
 
         <section>
-          <h2>CLASS AND INSTANCE METHODS</h2>
+          <h2>CLASS DEFINITION</h2>
+          <pre><code class="ruby">
+            class Animal
+            end
+
+            animal = Animal.new
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>INSTANCE METHODS</h2>
           <pre><code class="ruby">
             class Animal
               def eat
@@ -205,12 +216,15 @@
 
         <section>
           <h2>QUERY METHODS</h2>
+          <p>They are expected to return a boolean value, true or false</p>
           <pre><code class="ruby">
             module SwimAbility
               def can_swim?
                 true
               end
             end
+
+            Person.new.can_swim? # => true
           </code></pre>
         </section>
 
@@ -228,9 +242,10 @@
               end
             end
 
-            person.name # => nil
-            person.name = 'Pilu'
-            person.name # => "Pilu"
+            pilu = Person.new
+            pilu.name # => nil
+            pilu.name = 'Pilu'
+            pilu.name # => "Pilu"
           </code></pre>
         </section>
 
@@ -254,12 +269,14 @@
           <h2>CLASS VARIABLES</h2>
           <pre><code class="ruby">
             class Person
-              @@average_max_age = 80
+              @@life_expectancy = 80
 
-              def average_max_age
-                @@average_max_age
+              def life_expectancy
+                @@life_expectancy
               end
             end
+
+            pilu.life_expectancy # => 80
           </code></pre>
         </section>
 
@@ -316,8 +333,8 @@
               attr_accessor :age # a woman will never tell you her age
             end
 
-            mother   = Woman.new('Jane', 44)
-            daughter = Woman.new('Jill', 12)
+            mother, daughter = Woman.new('Jane', 44), Woman.new('Jill', 12)
+            mother.age # => NoMethodError: protected method `age' called
             mother.older? daughter # => true
           </code></pre>
         </section>
@@ -390,8 +407,32 @@
 
             my_number.class      # => Float
             my_number.to_i.class # => Fixnum
+            0.1 + 0.1 + 0.1      # => 0.30000000000000004
           </code></pre>
           <p>See more on <a href="http://ruby-doc.org/core-2.0.0/Numeric.html">ruby-doc.org</a></p>
+        </section>
+
+
+        <section>
+          <h2>Strongly typed</h2>
+          <p>No automatic conversion (unlike javascript)</p>
+          <pre><code class="ruby">
+          "mi è semblato di vedere " + 1 + " gatto"
+          # => TypeError: no implicit conversion of Fixnum into String
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>String interpolation</h2>
+          <pre><code class="ruby">
+            name   = 'Mary'
+            object = 'an apple'
+
+            puts name + ' eats ' + object # prints "Mary eats an apple"
+            puts "#{name} eats #{object}" # prints "Mary eats an apple"
+            puts "#{2 * name} is eating"  # prints "MaryMary is eating"
+          </code></pre>
         </section>
 
 
@@ -400,10 +441,8 @@
           <p>Strings cannot be multiplied by strings</p>
           <p>But they can be multiplied by numbers!</p>
           <pre><code class="ruby">
-            "s" * "d" # TypeError: no implicit conversion of String into Integer
-            2 * "manah manah" # => "manah manahmanah manah"
-
-            "manah " + 1 # => "manah 1"
+        "s" * "d" # TypeError: no implicit conversion of String into Integer
+        "manah manah" * 2 # => "manah manahmanah manah"
           </code></pre>
         </section>
 
@@ -413,10 +452,10 @@
           <p>symbols are similar to strings, but their object_id never changes</p>
           <pre><code class="ruby">
               'abc'.object_id == 'abc'.object_id # => false
-              :abc.object_id == :abc.object_id   # => true
+              :abc.object_id  == :abc.object_id  # => true
 
               'abc'.to_sym.object_id == 'abc'.to_sym.object_id # => true
-              :abc.to_s.object_id == :abc.to_s.object_id       # => false
+              :abc.to_s.object_id    == :abc.to_s.object_id    # => false
           </code></pre>
           <p>See more on <a href="http://ruby-doc.org/core-2.0.0/Symbol.html">ruby-doc.org</a></p>
         </section>
@@ -433,6 +472,18 @@
               string.reverse!
               string # => "egassem cinatas"
             </code></pre>
+        </section>
+
+
+        <section>
+          <h2>Truth, Untruth and Nothing</h2>
+          <pre><code class="ruby">
+            true.class  # => TrueClass
+            false.class # => FalseClass
+            nil.class   # => NilClass
+
+            "mary" == "mary" # =>  true
+          </code></pre>
         </section>
 
 
@@ -457,6 +508,16 @@
 
 
         <section>
+          <h2>Unless</h2>
+          <pre><code class="ruby">
+            puts "true" if !(3 < 1)
+            # same as
+            puts "true" unless 3 < 1
+          </code></pre>
+        </section>
+
+
+        <section>
           <h2>Else</h2>
           <pre><code class="ruby">
             if 3 > 5
@@ -473,47 +534,19 @@
           <pre><code class="ruby">
             if 3 > 5
               puts "3 is greater than 5"
-            elsif 3 > 2
-              puts "3 is greater than 2"
+            elsif 3 < 4
+              puts "3 is greater than 4"
             else
-              "3 is not greater than 5 and not greater than 2"
+              "3 is not greater than 5 nor smaller than 4"
             end
           </code></pre>
-        </section>
-
-
-        <section>
-          <h2>Unless</h2>
-          <pre><code class="ruby">
-            puts "true" if !(3 < 1)
-            # same as
-            puts "true" unless 3 < 1
-          </code></pre>
-        </section>
-
-
-        <section>
-          <h2>Each and Times</h2>
-          <pre><code class="ruby">
-            "mary".each do |char|
-              puts char # will print each letter of "mary"
-            end
-
-            4.times do |index|
-              puts index # will print each number from 0 to 3
-            end
-          </code></pre>
-          <p>
-            Ruby gives you even the plain <code>for</code> keyword but noone
-            uses it (and we'll not going to show it to you) because it's <strong>UGLY</strong>!
-          </p>
         </section>
 
 
         <section>
           <h2>While</h2>
           <pre><code class="ruby">
-            n = 0
+            n = 1
             while n < 10
               puts n
               n += 1
@@ -535,6 +568,24 @@
 
 
         <section>
+          <h2>Each and Times</h2>
+          <pre><code class="ruby">
+            "mary".each do |char|
+              puts char # will print each letter of "mary"
+            end
+
+            1.upto(9) do |n|
+              puts n # will print each number from 1 to 5
+            end
+          </code></pre>
+          <p>
+            Ruby has the plain <code>for</code> keyword but nobody
+            uses it (and we don't show it to you) because it's <strong>UGLY</strong>!
+          </p>
+        </section>
+
+
+        <section>
           <h2>Loop & sleep</h2>
           <pre><code class="ruby">
             n = 1
@@ -543,10 +594,12 @@
               n += 1
               sleep 1 # number of seconds
             end
+
+            puts "this will never happen, because it's outside of the loop"
           </code></pre>
         </section>
 
-
+<!---
         <section>
           <h2>Everything returns</h2>
           <pre><code class="ruby">
@@ -569,44 +622,19 @@
           </code></pre>
           <p>In ruby everything returns the last evaluated expression</p>
         </section>
-
-
-        <section>
-          <h2>Truth, Untruth and Nothing</h2>
-          <pre><code class="ruby">
-            true.class  # => TrueClass
-            false.class # => FalseClass
-            nil.class   # => NilClass
-
-            "mary" == "mary" # returns true, which class is TrueClass
-          </code></pre>
-        </section>
-
+-->
 
         <section>
           <h2>Identity</h2>
           <p>When you check an object in a condition you check its identity</p>
           <pre><code class="ruby">
-            if "mary" # True and each valid object validates to true
-              ...
+            if "mary" # True and almost every other object validates to true
+              puts "ruby thinks mary is true"
             end
-            # Instead nil and false identities always validate to false
+            # only nil and false are falsy:
             unless nil && false
-              puts 'd'
+              puts "nil and false are falsy"
             end
-          </code></pre>
-        </section>
-
-
-        <section>
-          <h2>String interpolation</h2>
-          <pre><code class="ruby">
-            name = 'Mary'
-            object = 'an apple'
-
-            puts name + ' eats ' + object # prints "Mary eats an apple"
-            puts "#{name} eats #{object}" # prints "Mary eats an apple"
-            puts "#{2 * name} is eating"  # prints "MaryMary is eating"
           </code></pre>
         </section>
 
@@ -647,12 +675,12 @@
           <h2>OPTIONAL ARGUMENTS</h2>
           <pre><code class="ruby">
             def walk(from='Rome', to='Milan')
-              puts 'You are walking from ' + from + ' to ' + to
+              puts "I'm walking from #{from} to #{to}"
             end
 
             walk
-            walk 'Rome'
-            walk 'Milan', 'Rome'
+            walk 'Florence'
+            walk 'Florence', 'Naples'
           </code></pre>
         </section>
 		</div>
