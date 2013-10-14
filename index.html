@@ -548,6 +548,30 @@
 
 
         <section>
+          <h2>Everything returns</h2>
+          <pre><code class="ruby">
+            name_equal = "mary" == "mary"
+            new_name = if string_equal
+              'foo'
+            else
+              'bar'
+            end
+            puts new_name # prints 'foo' because it's the last
+                          # evaluated statement
+
+            def factorial i
+              return 1 if i == 0
+              i * factorial(i - 1)
+            end
+
+            factorial 0 # returns 1 with the "return" statement
+            factorial 1 # returns 1 * factorial(0)
+          </code></pre>
+          <p>In ruby everything returns the last evaluated expression</p>
+        </section>
+
+
+        <section>
           <h2>Truth, Untruth and Nothing</h2>
           <pre><code class="ruby">
             true.class  # => TrueClass
@@ -584,28 +608,6 @@
             puts "#{name} eats #{object}" # prints "Mary eats an apple"
             puts "#{2 * name} is eating"  # prints "MaryMary is eating"
           </code></pre>
-        </section>
-
-
-        <section>
-          <h2>Everything returns something</h2>
-          <pre><code class="ruby">
-            a = "mary" == "mary"
-            puts a # prints true
-
-            def return_something
-              5 + 3
-            end
-
-            def force_return
-              return 'd'
-              5 + 2
-            end
-
-            return_something # => 8
-            force_return     # => 'd'
-          </code></pre>
-          <p>In ruby everything returns the last evaluated expression</p>
         </section>
 
 
