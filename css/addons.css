@@ -1,3 +1,7 @@
 .quote_author {
   text-align: right;
 }
+
+pre {
+  line-height: 1.1em !important;
+}

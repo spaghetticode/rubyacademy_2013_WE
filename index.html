@@ -100,7 +100,7 @@
           <pre><code class="ruby">
             irb
           </code></pre>
-          or, if you want color and extra features
+          <p>or, if you want color and extra features</p>
           <pre><code class="ruby">
             gem install pry
           </code></pre>
@@ -208,6 +208,8 @@
             class Person
               include SwimAbility
             end
+            # We are reopening the Person class so we don't need to specify
+            # it's inheritance from Animal again
 
             person.swim # prints "I'm swimming"
           </code></pre>
@@ -433,7 +435,7 @@
 
             puts name + ' eats ' + object # prints "Mary eats an apple"
             puts "#{name} eats #{object}" # prints "Mary eats an apple"
-            puts "#{2 * name} is eating"  # prints "MaryMary is eating"
+            puts "#{name * 2} is eating"  # prints "MaryMary is eating"
           </code></pre>
         </section>
 
@@ -573,18 +575,35 @@
         <section>
           <h2>Each and Times</h2>
           <pre><code class="ruby">
-            "mary".each do |char|
+            "mary".each_char do |char|
               puts char # will print each letter of "mary"
             end
 
             1.upto(9) do |n|
-              puts n # will print each number from 1 to 5
+              puts n # will print each number from 1 to 9
+            end
+
+            15.times do |i|
+              puts i # will print each number from 0 to 14
             end
           </code></pre>
           <p>
             Ruby has the plain <code>for</code> keyword but nobody
             uses it (and we don't show it to you) because it's <strong>UGLY</strong>!
           </p>
+        </section>
+
+
+        <section>
+          <h2>Blocks</h2>
+          <p>A block is an <em>object</em> containing a portion of your code</p>
+          <pre><code class="ruby">
+            "mary".each_char do |char|
+              puts char
+            end
+
+            "mary".each_char { |char| puts char }
+          </code></pre>
         </section>
 
 
